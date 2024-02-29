@@ -7,7 +7,7 @@ function Movie() {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/movies/${id}`)
+    fetch(`http://localhost:4000/movies/${id}`)
     .then(resp => resp.json())
     .then(data => setMovie(data))
   },[id])
