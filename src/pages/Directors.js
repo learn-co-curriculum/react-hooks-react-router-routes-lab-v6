@@ -12,11 +12,11 @@ function Directors() {
 
   const directorList = directors.map((director) => {
     return (
-      <article>
+      <article key={director.id}>
         <h2>{director.name}</h2>
         <ul>
           {director.movies.map((movie) => (
-            <li>{movie}</li>
+            <li key={movie}>{movie}</li>
           ))}
         </ul>
       </article>
