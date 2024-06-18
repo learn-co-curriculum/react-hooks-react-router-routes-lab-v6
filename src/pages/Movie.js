@@ -6,7 +6,6 @@ function Movie() {
   const [movie, setMovie] = useState({})
   const params = useParams()
   const movieId = params.id
-  console.log(movie)
 
   useEffect(() => {
     fetch(`http://localhost:4000/movies/${movieId}`)

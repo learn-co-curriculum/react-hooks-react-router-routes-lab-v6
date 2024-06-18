@@ -21,7 +21,7 @@ const routes = [
     errorElement: <ErrorPage />,
   },
   {
-    path: "/movies/:id",
+    path: "/movie/:id",
     element: <Movie />,
     errorElement: <ErrorPage />,
   },

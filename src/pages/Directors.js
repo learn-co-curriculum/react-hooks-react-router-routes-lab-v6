@@ -28,7 +28,10 @@ function Directors() {
       <header>
         <NavBar />
       </header>
-      <main>{directorList}</main>
+      <main>
+        <h1>Directors Page</h1>
+        {directorList}
+      </main>
     </>
   )
 }

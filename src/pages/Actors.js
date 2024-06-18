@@ -28,7 +28,10 @@ function Actors() {
       <header>
         <NavBar />
       </header>
-      <main>{actorList}</main>
+      <main>
+        <h1>Actors Page</h1>
+        {actorList}
+      </main>
     </>
   )
 }
