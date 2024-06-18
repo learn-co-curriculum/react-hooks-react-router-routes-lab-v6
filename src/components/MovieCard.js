@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 function MovieCard({ movie }) {
   console.log("movieCard", movie)
   const { id, title } = movie
-  console.log(id)
-  console.log(title)
 
   return (
     <article>
