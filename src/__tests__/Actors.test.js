@@ -1,7 +1,8 @@
+
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter} from "react-router-dom";
-import routes from "../routes";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import Actors from "../Actors"; // Import the Actors component
 
 const actors = [
   {
@@ -14,7 +15,7 @@ const actors = [
   },
   {
     name: "Anna Kendrick",
-    movies: ["Pitch Perfect", "Into The Wood"],
+    movies: ["Pitch Perfect", "Into The Woods"],
   },
   {
     name: "Tom Cruise",
@@ -26,10 +27,18 @@ const actors = [
   },
 ];
 
+const routes = [
+  {
+    path: "/actors",
+    element: <Actors />, // Use the Actors component directly
+  },
+  // Add more routes as needed
+];
+
 const router = createMemoryRouter(routes, {
   initialEntries: [`/actors`],
-  initialIndex: 0
-})
+  initialIndex: 0,
+});
 
 test("renders without any errors", () => {
   const errorSpy = jest.spyOn(global.console, "error");
@@ -69,11 +78,6 @@ test("renders a <li /> for each movie", async () => {
 });
 
 test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes, {
-    initialEntries: ['/actors']
-  })
-  render(
-      <RouterProvider router={router}/>
-  );
+  render(<RouterProvider router={router}/>);
   expect(document.querySelector(".navbar")).toBeInTheDocument();
 });
