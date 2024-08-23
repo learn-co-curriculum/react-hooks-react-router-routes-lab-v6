@@ -1,17 +1,10 @@
-.navbar > a{
-    display: inline-block;
-    box-sizing: border-box;
-    width: 70px;
-    padding: 5px;
-    margin: 0 6px 6px;
-    background: lightblue;
+nav a {
+    margin-right: 10px;
     text-decoration: none;
-    text-align: center;
-    font-size: min(10vw, 15px) ;
-    color: black;
-}
+    color: blue;
+  }
   
-a.active {
-    background: black;
-    color: white;
-}
+  nav a.active {
+    font-weight: bold;
+  }
+  
