@@ -27,3 +27,4 @@ yarn-error.log*
 
 # Ignore ESLint files
 .eslintcache
+.qodo
