@@ -17,7 +17,7 @@ const routes = [
     element: <Actors />,
   },
   {
-    path: "/movies/:id",
+    path: "/movie/:id",
     element: <Movie />,
   },
 ];
