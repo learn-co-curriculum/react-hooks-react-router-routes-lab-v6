@@ -1,4 +1,4 @@
-const DirectorCard = ({ name, movies }) => {
+const PersonCard = ({ name, movies }) => {
   return (
     <article>
       <h2>{name}</h2>
@@ -11,4 +11,4 @@ const DirectorCard = ({ name, movies }) => {
   );
 };
 
-export default DirectorCard;
+export default PersonCard;
