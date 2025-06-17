@@ -1,13 +1,31 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
+import DirectorCard from "../components/DirectorCard";
 
 function Directors() {
+  const [directorList, setDirectorList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/directors")
+      .then((r) => r.json())
+      .then((data) => setDirectorList(data));
+  }, []);
+
   return (
     <>
       <header>
         <NavBar />
       </header>
-      <main>{/* Director info here! */}</main>
+      <main>
+        <h1>Directors Page</h1>
+        {directorList.map((director) => (
+          <DirectorCard
+            key={director.id}
+            name={director.name}
+            movies={director.movies}
+          />
+        ))}
+      </main>
     </>
   );
 }
