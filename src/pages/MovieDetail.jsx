@@ -11,9 +11,7 @@ function Movie() {
     fetch(`http://localhost:4000/movies/${movieId}`)
       .then((r) => r.json())
       .then((data) => setMovie(data));
-  }, [movieId]);
-
-  if (!movie.title) return <p>Loading...</p>;
+  }, []);
 
   return (
     <>
