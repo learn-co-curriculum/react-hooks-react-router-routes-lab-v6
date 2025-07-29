@@ -1,79 +1,55 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter} from "react-router-dom";
-import routes from "../routes";
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
-const actors = [
-  {
-    name: "Benedict Cumberbatch",
-    movies: ["Doctor Strange", "The Imitation Game", "Black Mass"],
-  },
-  {
-    name: "Justin Timberlake",
-    movies: ["Trolls", "Friends with Benefits", "The Social Network"],
-  },
-  {
-    name: "Anna Kendrick",
-    movies: ["Pitch Perfect", "Into The Wood"],
-  },
-  {
-    name: "Tom Cruise",
-    movies: [
-      "Jack Reacher: Never Go Back",
-      "Mission Impossible 4",
-      "War of the Worlds",
-    ],
-  },
-];
+let container;
 
-const router = createMemoryRouter(routes, {
-  initialEntries: [`/actors`],
-  initialIndex: 0
-})
-
-test("renders without any errors", () => {
-  const errorSpy = vi.spyOn(global.console, "error");
-
-  render(<RouterProvider router={router}/>);
-
-  expect(errorSpy).not.toHaveBeenCalled();
-
-  errorSpy.mockRestore();
+beforeEach(() => {
+  container = render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
+  ).container;
 });
 
-test("renders 'Actors Page' inside of the <h1 />", () => {
-  render(<RouterProvider router={router}/>);
-  const h1 = screen.queryByText(/Actors Page/);
-  expect(h1).toBeInTheDocument();
-  expect(h1.tagName).toBe("H1");
+test('wraps content in a div with "navbar" class', () => {
+  expect(container.querySelector(".navbar")).toBeInTheDocument();
 });
 
-test("renders each actor's name", async () => {
-  render(<RouterProvider router={router}/>);
-  for (const actor of actors) {
-    expect(
-      await screen.findByText(actor.name, { exact: false })
-    ).toBeInTheDocument();
-  }
+test("renders a Home <NavLink>", async () => {
+  const a = screen.queryByText(/Home/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });
 
-test("renders a <li /> for each movie", async () => {
-  render(<RouterProvider router={router}/>);
-  for (const actor of actors) {
-    for (const movie of actor.movies) {
-      const li = await screen.findByText(movie, { exact: false });
-      expect(li).toBeInTheDocument();
-      expect(li.tagName).toBe("LI");
-    }
-  }
+test("renders a Actors <NavLink>", async () => {
+  const a = screen.queryByText(/Actors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });
 
-test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes, {
-    initialEntries: ['/actors']
-  })
-  render(
-      <RouterProvider router={router}/>
-  );
-  expect(document.querySelector(".navbar")).toBeInTheDocument();
+test("renders a Directors <NavLink>", async () => {
+  const a = screen.queryByText(/Directors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });

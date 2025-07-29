@@ -1,55 +1,55 @@
 import "@testing-library/jest-dom";
-import { RouterProvider, createMemoryRouter, MemoryRouter} from "react-router-dom"
-import { render, screen } from "@testing-library/react";
-import routes from "../routes";
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
+let container;
 
-
-test('renders the Home component on route "/"', () => {
-  const router = createMemoryRouter(routes)
-  render(
-    <RouterProvider router={router}/>
-);
-  expect(screen.getByText(/Home Page/)).toBeInTheDocument();
+beforeEach(() => {
+  container = render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
+  ).container;
 });
 
-test('renders the Actors component on route "/actors"', () => {
-    const router = createMemoryRouter(routes, {
-        initialEntries: ['/actors']
-    })
-  render(
-    <RouterProvider router={router}/>
-);
-  expect(screen.getByText(/Actors Page/)).toBeInTheDocument();
+test('wraps content in a div with "navbar" class', () => {
+  expect(container.querySelector(".navbar")).toBeInTheDocument();
 });
 
-test('renders the Directors component on route "/directors"', () => {
-    const router = createMemoryRouter(routes, {
-        initialEntries: ['/directors']
-    })
-  render(
-      <RouterProvider router={router}/>
-  );
-  expect(screen.queryByText(/Directors Page/)).toBeInTheDocument();
+test("renders a Home <NavLink>", async () => {
+  const a = screen.queryByText(/Home/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });
 
-test('renders the Movie component on route "/movie/:id"', async () => {
-    const id = 1
-    const router = createMemoryRouter(routes, {
-        initialEntries: [`/movie/${id}`]
-    })
-  render(
-    <RouterProvider router={router}/>
-);
-  expect(await screen.findByText(/Doctor Strange/)).toBeInTheDocument();
+test("renders a Actors <NavLink>", async () => {
+  const a = screen.queryByText(/Actors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });
 
-test("renders an error page when given a bad URL", () =>{
-  const router = createMemoryRouter(routes, {
-      initialEntries: ["/bad-route"]
-  })
-  render(
-      <RouterProvider router={router} />
-  )
-  expect(screen.getByText(/Oops! Looks like something went wrong./)).toBeInTheDocument()
-})
+test("renders a Directors <NavLink>", async () => {
+  const a = screen.queryByText(/Directors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
+});

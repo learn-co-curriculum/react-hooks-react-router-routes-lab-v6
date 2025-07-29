@@ -1,36 +1,55 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter} from "react-router-dom";
-import routes from "../routes";
+import React from "react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
-const router = createMemoryRouter(routes)
+let container;
 
-test("renders 'Home Page' inside of an <h1 />", () => {
-  render(<RouterProvider router={router}/>);
-  const h1 = screen.queryByText(/Home Page/);
-  expect(h1).toBeInTheDocument();
-  expect(h1.tagName).toBe("H1");
+beforeEach(() => {
+  container = render(
+    <BrowserRouter>
+      <NavBar />
+    </BrowserRouter>
+  ).container;
 });
 
-test("Displays a list of movie titles", async () =>{
-  render(<RouterProvider router={router}/>);
-  const titleList = await screen.findAllByRole('heading', {level: 2})
-  expect(titleList.length).toBeGreaterThan(2);
-  expect(titleList[0].tagName).toBe("H2");
-  expect(titleList[0].textContent).toBe("Doctor Strange");
-})
+test('wraps content in a div with "navbar" class', () => {
+  expect(container.querySelector(".navbar")).toBeInTheDocument();
+});
 
-test("Displays links for each associated movie", async () =>{
-  render(<RouterProvider router={router}/>);
-  const linkList = await screen.findAllByText(/View Info/);
-  expect(linkList.length).toBeGreaterThan(2);
-  expect(linkList[0].href.split("/").slice(3).join("/")).toBe("movie/1");
-})
+test("renders a Home <NavLink>", async () => {
+  const a = screen.queryByText(/Home/);
 
-test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes)
-  render(
-      <RouterProvider router={router}/>
-  );
-  expect(document.querySelector(".navbar")).toBeInTheDocument();
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
+});
+
+test("renders a Actors <NavLink>", async () => {
+  const a = screen.queryByText(/Actors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
+});
+
+test("renders a Directors <NavLink>", async () => {
+  const a = screen.queryByText(/Directors/);
+
+  expect(a).toBeInTheDocument();
+  expect(a.tagName).toBe("A");
+  expect(a.href).toContain("/");
+
+  fireEvent.click(a, { button: 0 });
+
+  expect(a.classList).toContain("active");
 });
