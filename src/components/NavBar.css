@@ -15,3 +15,19 @@ a.active {
     background: black;
     color: white;
 }
+/* src/components/NavBar.css */
+nav {
+  background-color: #333;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a.active {
+  text-decoration: underline;
+}
