@@ -22,7 +22,7 @@ test("Displays a list of movie titles", async () =>{
 
 test("Displays links for each associated movie", async () =>{
   render(<RouterProvider router={router}/>);
-  const linkList = await screen.findAllByText(/View Info/);
+  const linkList = await screen.findAllByText(/View Details/); // <-- CHANGE THIS LINE
   expect(linkList.length).toBeGreaterThan(2);
   expect(linkList[0].href.split("/").slice(3).join("/")).toBe("movie/1");
 })
