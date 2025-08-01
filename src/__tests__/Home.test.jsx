@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter} from "react-router-dom";
-import routes from "../routes";
+import routes from "../routes"; // The routes array is imported and used here
 
-const router = createMemoryRouter(routes)
+const router = createMemoryRouter(routes) // routes is correctly passed here
 
 test("renders 'Home Page' inside of an <h1 />", () => {
   render(<RouterProvider router={router}/>);
@@ -22,13 +22,13 @@ test("Displays a list of movie titles", async () =>{
 
 test("Displays links for each associated movie", async () =>{
   render(<RouterProvider router={router}/>);
-  const linkList = await screen.findAllByText(/View Details/); // <-- CHANGE THIS LINE
+  const linkList = await screen.findAllByText(/View Details/);
   expect(linkList.length).toBeGreaterThan(2);
   expect(linkList[0].href.split("/").slice(3).join("/")).toBe("movie/1");
 })
 
 test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes)
+  const router = createMemoryRouter(routes) // routes is correctly passed here
   render(
       <RouterProvider router={router}/>
   );
