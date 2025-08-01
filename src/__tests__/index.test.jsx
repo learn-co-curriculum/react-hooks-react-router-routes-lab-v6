@@ -1,12 +1,10 @@
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter, MemoryRouter} from "react-router-dom"
 import { render, screen } from "@testing-library/react";
-import routes from "../routes";
-
-
+import routes from "../routes"; // The routes array is imported and used here
 
 test('renders the Home component on route "/"', () => {
-  const router = createMemoryRouter(routes)
+  const router = createMemoryRouter(routes) // routes is correctly passed here
   render(
     <RouterProvider router={router}/>
 );
@@ -14,7 +12,7 @@ test('renders the Home component on route "/"', () => {
 });
 
 test('renders the Actors component on route "/actors"', () => {
-    const router = createMemoryRouter(routes, {
+    const router = createMemoryRouter(routes, { // routes is correctly passed here
         initialEntries: ['/actors']
     })
   render(
@@ -24,7 +22,7 @@ test('renders the Actors component on route "/actors"', () => {
 });
 
 test('renders the Directors component on route "/directors"', () => {
-    const router = createMemoryRouter(routes, {
+    const router = createMemoryRouter(routes, { // routes is correctly passed here
         initialEntries: ['/directors']
     })
   render(
@@ -35,7 +33,7 @@ test('renders the Directors component on route "/directors"', () => {
 
 test('renders the Movie component on route "/movie/:id"', async () => {
     const id = 1
-    const router = createMemoryRouter(routes, {
+    const router = createMemoryRouter(routes, { // routes is correctly passed here
         initialEntries: [`/movie/${id}`]
     })
   render(
@@ -45,7 +43,7 @@ test('renders the Movie component on route "/movie/:id"', async () => {
 });
 
 test("renders an error page when given a bad URL", () =>{
-  const router = createMemoryRouter(routes, {
+  const router = createMemoryRouter(routes, { // routes is correctly passed here
       initialEntries: ["/bad-route"]
   })
   render(

@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter} from "react-router-dom"
 import { render, screen } from "@testing-library/react";
-import routes from "../routes";
+import routes from "../routes"; // The routes array is imported and used here
 
 const directors = [
   {
@@ -18,7 +18,7 @@ const directors = [
   },
 ];
 
-const router = createMemoryRouter(routes, {
+const router = createMemoryRouter(routes, { // routes is correctly passed here
   initialEntries: [`/directors`],
   initialIndex: 0
 })
@@ -61,7 +61,7 @@ test("renders a <li /> for each movie", async () => {
 });
 
 test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes, {
+  const router = createMemoryRouter(routes, { // routes is correctly passed here
     initialEntries: ['/directors']
   })
   render(

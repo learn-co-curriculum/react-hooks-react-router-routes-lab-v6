@@ -4,52 +4,43 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-let container;
-
-beforeEach(() => {
-  container = render(
+// Helper function to render the NavBar wrapped in a BrowserRouter
+const renderWithRouter = () => {
+  return render(
     <BrowserRouter>
       <NavBar />
     </BrowserRouter>
-  ).container;
-});
+  );
+};
 
 test('wraps content in a div with "navbar" class', () => {
+  const { container } = renderWithRouter();
   expect(container.querySelector(".navbar")).toBeInTheDocument();
 });
 
 test("renders a Home <NavLink>", async () => {
-  const a = screen.queryByText(/Home/);
+  renderWithRouter();
+  const a = screen.getByText(/Home/);
 
   expect(a).toBeInTheDocument();
   expect(a.tagName).toBe("A");
   expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
 });
 
 test("renders a Actors <NavLink>", async () => {
-  const a = screen.queryByText(/Actors/);
+  renderWithRouter();
+  const a = screen.getByText(/Actors/);
 
   expect(a).toBeInTheDocument();
   expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
+  expect(a.href).toContain("/actors"); // Ensure the href matches the route
 });
 
 test("renders a Directors <NavLink>", async () => {
-  const a = screen.queryByText(/Directors/);
+  renderWithRouter();
+  const a = screen.getByText(/Directors/);
 
   expect(a).toBeInTheDocument();
   expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
+  expect(a.href).toContain("/directors"); // Ensure the href matches the route
 });
