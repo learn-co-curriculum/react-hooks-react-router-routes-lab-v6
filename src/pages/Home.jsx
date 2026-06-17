@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
+import { useOutletContext, Link } from "react-router-dom";
+import MovieCard from "../components/MovieCard";
 
 function Home() {
+  const { movies } = useOutletContext();
+
   return (
-    <>
-      <header>
-        {/* What component should go here? */}
-      </header>
-      <main>
-        {/* Info goes here! */}
-      </main>
-    </>
+    <main>
+      <h1>Home Page</h1>
+      <div className="movie-list">
+        {movies?.map((movie) => (
+          <div key={movie.id}>
+            <MovieCard movie={movie} />
+          </div>
+        ))}
+      </div>
+    </main>
   );
-};
+}
 
 export default Home;
+
+
+

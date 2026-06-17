@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 function Directors() {
+  const { directors } = useOutletContext();
+
   return (
-    <>
-      <header>
-        {/* What component should go here? */}
-      </header>
-      <main>
-        {/* Director info here! */}
-      </main>
-    </>
+    <main>
+      <h1>Directors Page</h1>
+      <ul>
+        {directors?.map((director) => (
+          <li key={director.id}>
+            {director.name}
+            <ul>
+              {director.movies.map((movie, index) => (
+                <li key={index}>{movie}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
-};
+}
 
 export default Directors;
+
+
+
